@@ -2220,6 +2220,7 @@ static void __afl_start_forkserver(void) {
     if (unlikely(child_stopped && was_killed)) {
 
       child_stopped = 0;
+      kill(child_pid, SIGKILL);
       if (unlikely(waitpid(child_pid, &status, 0) < 0)) {
 
         write_error("child_stopped && was_killed");
