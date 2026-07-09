@@ -233,9 +233,11 @@ static u8 *__afl_area_ptr_backup = __afl_area_initial;
 u8  *__afl_area_ptr = __afl_area_initial;
 u8  *__afl_dictionary;
 u32 *__afl_child_sync = NULL;
+#if defined(__linux__) || defined(__APPLE__)
 /* Byte offset of the child_sync word inside the trace_bits shared map (0 if
    none). */
 static u32 __afl_child_sync_off = 0;
+#endif
 /* Lengths we mmap()ed for each shared region, so __afl_unmap_shm() can undo
    exactly what was done. A length of 0 means the region was not mmap()ed -
    either it was never attached, or it came in as a SysV segment that has to be
